@@ -39,6 +39,7 @@ function init() {
         e.preventDefault();
         mouseDown = true;
     });
+    
     // detect mouse up
     $(document).mouseup(function (e) {
         mouseDown = false;
