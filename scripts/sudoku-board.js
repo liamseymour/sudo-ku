@@ -1,7 +1,3 @@
-import {event, clearErrors, clearSelection, clearBoard, insertColor, 
-    insertNote, insertDigit, insertDigits, validateBoard, validateTile,
-    lockTiles, resetTiles, moveCursor, setCursor, selectTiles} from "./sudoku-model.mjs";
-
 const modeCount = 3;
 const modes = {"digit":0, "note":1, "color":2};
 
