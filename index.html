@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+		<link rel="stylesheet" href="css/master.css">
+		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Roboto+Slab&display=swap" rel="stylesheet">
+        <title>Sudoku</title>
+    </head>
+    <body>
+        <header>
+			<div class="title">
+				<a href="index.html">Sudo<span class="grey">ku</span></a>
+			</div>
+			<div class="strip">
+				<a href="" class="strip-item">Choose Game</a>
+				<div class="dropdown" >
+					<span class="strip-item">Random Game</span>
+					<div class="dropdown-content">
+						<button onclick="easyPuzzle()">Easy</button>
+						<br>
+						<button onclick="mediumPuzzle()">Medium</button>
+						<br>
+						<button onclick="hardPuzzle()">Hard</button>
+					</div>
+				</div>
+				<a href="" class="strip-item">Load Game</a>
+				<a href="help.html" class="strip-item">Help</a>
+			</div>
+        </header>
+        <article class="sudoku">
+
+			<!-- Main sudoku board -->
+			<table id="grid">
+			   <tr class="row" id="A">
+				   <td class="1 selected cursor"><div></div></td>
+				   <td class="2"><div></div></td>
+				   <td class="3"><div></div></td>
+				   <td class="4"><div></div></td>
+				   <td class="5"><div></div></td>
+				   <td class="6"><div></div></td>
+				   <td class="7"><div></div></td>
+				   <td class="8"><div></div></td>
+				   <td class="9"><div></div></td>
+				</tr>
+
+			    <tr class="row" id="B">
+				   <td class="1"><div></div></td>
+				   <td class="2"><div></div></td>
+				   <td class="3"><div></div></td>
+				   <td class="4"><div></div></td>
+				   <td class="5"><div></div></td>
+				   <td class="6"><div></div></td>
+				   <td class="7"><div></div></td>
+				   <td class="8"><div></div></td>
+				   <td class="9"><div></div></td>
+			   </tr>
+			   <tr class="row" id="C">
+				   <td class="1"><div></div></td>
+				   <td class="2"><div></div></td>
+				   <td class="3"><div></div></td>
+				   <td class="4"><div></div></td>
+				   <td class="5"><div></div></td>
+				   <td class="6"><div></div></td>
+				   <td class="7"><div></div></td>
+				   <td class="8"><div></div></td>
+				   <td class="9"><div></div></td>
+				</tr>
+
+			    <tr class="row" id="D">
+				   <td class="1"><div></div></td>
+				   <td class="2"><div></div></td>
+				   <td class="3"><div></div></td>
+				   <td class="4"><div></div></td>
+				   <td class="5"><div></div></td>
+				   <td class="6"><div></div></td>
+				   <td class="7"><div></div></td>
+				   <td class="8"><div></div></td>
+				   <td class="9"><div></div></td>
+			   </tr>
+			   <tr class="row" id="E">
+				   <td class="1"><div></div></td>
+				   <td class="2"><div></div></td>
+				   <td class="3"><div></div></td>
+				   <td class="4"><div></div></td>
+				   <td class="5"><div></div></td>
+				   <td class="6"><div></div></td>
+				   <td class="7"><div></div></td>
+				   <td class="8"><div></div></td>
+				   <td class="9"><div></div></td>
+				</tr>
+
+			    <tr class="row" id="F">
+				   <td class="1"><div></div></td>
+				   <td class="2"><div></div></td>
+				   <td class="3"><div></div></td>
+				   <td class="4"><div></div></td>
+				   <td class="5"><div></div></td>
+				   <td class="6"><div></div></td>
+				   <td class="7"><div></div></td>
+				   <td class="8"><div></div></td>
+				   <td class="9"><div></div></td>
+			   </tr>
+			   <tr class="row" id="G">
+				   <td class="1"><div></div></td>
+				   <td class="2"><div></div></td>
+				   <td class="3"><div></div></td>
+				   <td class="4"><div></div></td>
+				   <td class="5"><div></div></td>
+				   <td class="6"><div></div></td>
+				   <td class="7"><div></div></td>
+				   <td class="8"><div></div></td>
+				   <td class="9"><div></div></td>
+				</tr>
+
+			    <tr class="row" id="H">
+				   <td class="1"><div></div></td>
+				   <td class="2"><div></div></td>
+				   <td class="3"><div></div></td>
+				   <td class="4"><div></div></td>
+				   <td class="5"><div></div></td>
+				   <td class="6"><div></div></td>
+				   <td class="7"><div></div></td>
+				   <td class="8"><div></div></td>
+				   <td class="9"><div></div></td>
+			   </tr>
+			   <tr class="row" id="I">
+				   <td class="1"><div></div></td>
+				   <td class="2"><div></div></td>
+				   <td class="3"><div></div></td>
+				   <td class="4"><div></div></td>
+				   <td class="5"><div></div></td>
+				   <td class="6"><div></div></td>
+				   <td class="7"><div></div></td>
+				   <td class="8"><div></div></td>
+				   <td class="9"><div></div></td>
+				</tr>
+		   	</table>
+
+
+
+            <!-- Control and options menu. Controls and options should have a tab select on top.-->
+            <div class="controls">
+                <div class="mode-select">
+                    <button type="button" name="fill" class="selected-mode" onclick="setMode(0)">Normal</button>
+                    <button type="button" name="pencil" class="unselected-mode" onclick="setMode(1)">Note</button>
+                    <button type="button" name="color" class="unselected-mode" onclick="setMode(2)">Color</button>
+                </div>
+                <div class="mode-panes">
+                    <table class="fill-pane selected">
+						<tr>
+							<td class="1" onclick="insertDigit(1)"><button>1</button></td> <td class="2" onclick="insertDigit(2)"><button>2</button></td> <td class="3" onclick="insertDigit(3)"><button>3</button></td>
+						</tr>
+						<tr>
+							<td class="4" onclick="insertDigit(4)"><button>4</button></td> <td class="5" onclick="insertDigit(5)"><button>5</button></td> <td class="6" onclick="insertDigit(6)"><button>6</button></td>
+						</tr>
+						<tr>
+							<td class="7" onclick="insertDigit(7)"><button>7</button></td> <td class="8" onclick="insertDigit(8)"><button>8</button></td> <td class="9" onclick="insertDigit(9)"><button>9</button></td>
+						</tr>
+                    </table>
+                    <table class="pencil-pane">
+						<tr>
+							<td class="1" onclick="insertNote(1)"><button>1</button></td> <td class="2" onclick="insertNote(2)"><button>2</button></td> <td class="3" onclick="insertNote(3)"><button>3</button></td>
+						</tr>
+						<tr>
+							<td class="4" onclick="insertNote(4)"><button>4</button></td> <td class="5" onclick="insertNote(5)"><button>5</button></td> <td class="6" onclick="insertNote(6)"><button>6</button></td>
+						</tr>
+						<tr>
+							<td class="7" onclick="insertNote(7)"><button>7</button></td> <td class="8" onclick="insertNote(8)"><button>8</button></td> <td class="9" onclick="insertNote(9)"><button>9</button></td>
+						</tr>
+                    </table>
+                    <table class="color-pane">
+						<tr>
+							<td class="1" onclick="insertColor(1)"><button class="red">1</button></td> <td class="2" onclick="insertColor(2)"><button class="green">2</button></td> <td class="3" onclick="insertColor(3)"><button class="blue">3</button></td>
+						</tr>
+						<tr>
+							<td class="4" onclick="insertColor(4)"><button class="yellow">4</button></td> <td class="5" onclick="insertColor(5)"><button class="magenta">5</button></td> <td class="6" onclick="insertColor(6)"><button class="mint">6</button></td>
+						</tr>
+						<tr>
+							<td class="7" onclick="insertColor(7)"><button class="lightblue">7</button></td> <td class="8" onclick="insertColor(8)"><button class="white">8</button></td> <td class="9" onclick="insertColor(9)"><button class="black">9</button></td>
+						</tr>
+                    </table>
+                </div>
+
+            
+				<!-- sets game options -->
+				<div>
+					<span class="category">Show Errors</span>
+					<label class="switch">
+						<input id="errorSwitch" type="checkbox" onclick="toggleErrorChecking()">
+						<span class="slider"></span>
+					</label>
+				</div>
+            </div>
+        </article>
+
+        <footer>
+        	Author: Liam Seymour
+        </footer>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="scripts/sudoku-board.js"></script>
+    </body>
+</html>
