@@ -1,24 +1,23 @@
 loadScript("/scripts/sudoku-model.js");
 
 // globals
-const modeCount = 3;
-const modes = {"digit":0, "note":1, "color":2};
-
 var board = new Board();
 var keys = {}; // keyboard keys currently pressed
 var mouseDown = false; // mouse currently pressed
-var mode = modes["digit"]; // what mode are we in?
-var lastMode = modes["digit"]; // Last mode used that is not the current mode
+
 // var eventStack = []; // Records select actions from the user to allow for undoing
 
 function Board() {
     this.cursorIndex = 0; // position of cursor
     this.add = false; // Should selection grow or be replaced?
+    this.modes = {"digit":0, "note":1, "color":2};
+    this.modeCount = Object.keys(this.modes).length;
+    this.mode = this.modes["digit"]; // what mode are we in?
+    this.lastMode = this.modes["digit"]; // Last mode used that is not the current mode
 }
 
 function init() {
     var start = new Date();
-
     // Drag select listeners
     // inital mouse click
     $("#grid td").mousedown(function (e) {
@@ -56,21 +55,19 @@ function init() {
         e.preventDefault();
         keys[e.key] = true;
 
-        if (keys[" "]) { setMode(mode + 1); }
-        if (keys["Shift"]) { setMode(modes["note"]) }
+        if (keys[" "]) { setMode(board.mode + 1, board); }
+        if (keys["Shift"]) { setMode(board.modes["note"], board) }
         if (keys["Control"]) { board.add = true; }
         if (keys["Enter"]) { lockTiles(); }
 
         if (e.which >= 49 && e.which <= 57)  { // keys 1-9
             var digit = e.which - 48;
-            if (mode == modes["note"]) { insertNote(digit); }
-            else if (mode == modes["digit"]) { insertDigits(digit); }
-            else if (mode == modes["color"]) { insertColor(digit); }
+            insert(digit, board);
         }
-        if (keys["w"] || keys["W"] || keys["ArrowUp"]) { moveCursor("up", board); }
-        if (keys["s"] || keys["S"] || keys["ArrowDown"]) { moveCursor("down", board); }
-        if (keys["a"] || keys["A"] || keys["ArrowLeft"]) { moveCursor("left", board); }
-        if (keys["d"] || keys["D"] || keys["ArrowRight"]) { moveCursor("right", board); }
+        if (keys["ArrowUp"]) { moveCursor("up", board); }
+        if (keys["ArrowDown"]) { moveCursor("down", board); }
+        if (keys["ArrowLeft"]) { moveCursor("left", board); }
+        if (keys["ArrowRight"]) { moveCursor("right", board); }
 
         if (keys["Delete"] || keys["Backspace"]) { 
             if (mode == modes["color"]) {
@@ -90,7 +87,7 @@ function init() {
     // detect modifier key up
     $(document).keyup(function (e) {
         if (e.key == "Control") { board.add = false; }
-        if (e.key == "Shift") { setMode(lastMode); }
+        if (e.key == "Shift") { setMode(lastMode, board); }
         if (e.key == "Shift" || e.key == "Control") { 
             keys[e.key] = false;
         }
@@ -111,30 +108,6 @@ function toggleErrorChecking() {
         validateBoard();
     else
         clearErrors();
-}
-
-/**
- * Changes global variable accordingly, if nextMode >= mode count, it will cycle back to acceptable range
- * Updates css to reflect changes. 
- * Updates global variable lastMode. 
- * @param {number} nextMode An integer for what mode to change to.
- */
-function setMode(nextMode) {
-    if (nextMode != mode) {
-        lastMode = mode;
-    }
-    mode = nextMode % modeCount;
-    $(".fill-pane").removeClass("selected");
-    $(".pencil-pane").removeClass("selected");
-    $(".color-pane").removeClass("selected");
-
-    if (mode == modes["digit"]) {
-        $(".fill-pane").addClass("selected");
-    } else if (mode == modes["note"]) {
-        $(".pencil-pane").addClass("selected");
-    } else if (mode == modes["color"]) {
-        $(".color-pane").addClass("selected");
-    }
 }
 
 function hardPuzzle() {

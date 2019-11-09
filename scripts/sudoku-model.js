@@ -66,6 +66,18 @@ function moveCursor(direction, board) {
 }
 
 /**
+ * General insert function, determines which function is called by board's mode attribute
+ */
+function insert(digit, board) {
+    if (board.mode == board.modes["digit"])
+        insertDigits(digit);
+    else if (board.mode == board.modes["note"])
+        insertNote(digit);
+    else if (board.mode == board.modes["color"])
+        insertColor(digit);
+}
+
+/**
  * Inserts a digit into 1 tile.
  */
 function insertDigit(digit, tile, lock) {
@@ -115,7 +127,7 @@ function insertNote(digit) {
                 var num = parseInt(currentNotes.charAt(i));
                 notes[num-1] = true;
             }
-            notes[digit-1] = !notes[digit-1]; // toggles the given diggit
+            notes[digit-1] = !notes[digit-1]; // toggles the given digit
             // create note string, so that it is in currect order
             var newNotes = "";
             for (var i = 0; i < 9; i++) {
@@ -131,15 +143,6 @@ function insertNote(digit) {
 }
 
 /**
- * Clears the whole grid in regards to selection.
- */
-function clearSelection() {
-    for (var i = 0; i < 81; i++) {
-        getTile1D(i).removeClass("selected");
-    }
-}
-
-/**
  * Sets the class of selected tiles to be the appropriate color.
  */
 function insertColor(number) {
@@ -149,6 +152,15 @@ function insertColor(number) {
     $("#grid td.selected div").removeClass("red green blue yellow magenta mint lightblue white black");
     $("#grid td.selected div").addClass(colorMap[number]);
 }
+/**
+ * Clears the whole grid in regards to selection.
+ */
+function clearSelection() {
+    for (var i = 0; i < 81; i++) {
+        getTile1D(i).removeClass("selected");
+    }
+}
+
 
 /**
  * Clears digits and notes from selection.
@@ -277,6 +289,30 @@ function validateBoard() {
 function clearErrors() {
     for (var i = 0; i < 81; i++)
         getTile1D(i).removeClass("error");
+}
+
+/**
+ * Changes global variable accordingly, if nextMode >= mode count, it will cycle back to acceptable range
+ * Updates css to reflect changes. 
+ * Updates global variable lastMode. 
+ * @param {number} nextMode An integer for what mode to change to.
+ */
+function setMode(nextMode, board) {
+    if (nextMode != board.mode) {
+        board.lastMode = board.mode;
+    }
+    board.mode = nextMode % board.modeCount;
+    $(".fill-pane").removeClass("selected");
+    $(".pencil-pane").removeClass("selected");
+    $(".color-pane").removeClass("selected");
+
+    if (board.mode == board.modes["digit"]) {
+        $(".fill-pane").addClass("selected");
+    } else if (board.mode == board.modes["note"]) {
+        $(".pencil-pane").addClass("selected");
+    } else if (board.mode == board.modes["color"]) {
+        $(".color-pane").addClass("selected");
+    }
 }
 
 /** undo is NOT IMPLEMENTED
