@@ -1,8 +1,3 @@
-function Board() {
-	this.cursorIndex = 0; // position of cursor
-	this.add = false; // Should selection grow or be replaced?
-}
-
 /**
  * @param {integer[]} tiles An array of tiles to select. The tile is represented 
  * by its absolute position (0 indexed). Requires: 0 <= tiles[i] <= 80.
@@ -299,10 +294,6 @@ function event(action, effectedTile, overwrittenType, overwritten) {
     this.overwrittenType = overwrittenType;
     this.overwritten = overwritten;
 }
-
-export {event, clearErrors, clearSelection, clearBoard, insertColor, 
-	insertNote, insertDigit, insertDigits, validateBoard, validateTile,
-	lockTiles, resetTiles, moveCursor, setCursor, selectTiles};
 
 /* * * * * * * * * * * * * * * * * * Helper Methods Below * * * * * * * * * * * * * * * * * * /
 
