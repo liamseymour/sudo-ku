@@ -70,8 +70,8 @@ function init() {
         if (keys["ArrowRight"]) { moveCursor("right", board); }
 
         if (keys["Delete"] || keys["Backspace"]) { 
-            if (mode == modes["color"]) {
-                insertColor(8);
+            if (board.mode == board.modes["color"]) {
+                insertColor(-1);
             } else {
                 resetTiles();
             }

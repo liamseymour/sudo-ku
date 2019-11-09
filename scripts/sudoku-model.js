@@ -150,7 +150,8 @@ function insertColor(number) {
                 5:"magenta", 6:"mint", 7:"lightblue", 8:"white",
                 9:"black"};
     $("#grid td.selected div").removeClass("red green blue yellow magenta mint lightblue white black");
-    $("#grid td.selected div").addClass(colorMap[number]);
+    if (number > 0 && number < 10)
+        $("#grid td.selected div").addClass(colorMap[number]);
 }
 /**
  * Clears the whole grid in regards to selection.
