@@ -30,6 +30,7 @@ function init() {
         e.preventDefault();
         mouseDown = true;
     });
+
     // Click and drag
     $("#grid td").mouseover(function (e) {
         if (mouseDown) {
@@ -45,6 +46,7 @@ function init() {
             board.add = previousAddState;
         }
     });
+
     // detect mouse up
     $(document).mouseup(function (e) {
         mouseDown = false;
