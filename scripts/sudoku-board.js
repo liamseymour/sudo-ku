@@ -65,6 +65,9 @@ function init() {
         if (e.which >= 49 && e.which <= 57)  { // keys 1-9
             var digit = e.which - 48;
             insert(digit, board);
+            // validate board, if error checking switch is enabled and a digit is placed (Later if something is deleted)
+            if ($("#errorSwitch").is(':checked') && board.mode == board.modes["digit"]) 
+                validateBoard();
         }
         if (keys["ArrowUp"]) { moveCursor("up", board); }
         if (keys["ArrowDown"]) { moveCursor("down", board); }
@@ -76,13 +79,14 @@ function init() {
                 insertColor(0);
             } else {
                 resetTiles();
+                // validate board, if error checking switch is enabled 
+                if ($("#errorSwitch").is(':checked')) 
+                    validateBoard();
             }
         }
 
         if (e.key != "Shift" && e.key != "Control") { // Non-modifyer keys
             keys[e.key] = false;
-            if ($("#errorSwitch").is(':checked')) // validate board, if error checking switch is enabled
-                validateBoard();
         }
     });
 
