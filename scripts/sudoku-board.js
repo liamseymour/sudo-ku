@@ -71,7 +71,7 @@ function init() {
 
         if (keys["Delete"] || keys["Backspace"]) { 
             if (board.mode == board.modes["color"]) {
-                insertColor(-1);
+                insertColor(0);
             } else {
                 resetTiles();
             }
@@ -87,7 +87,7 @@ function init() {
     // detect modifier key up
     $(document).keyup(function (e) {
         if (e.key == "Control") { board.add = false; }
-        if (e.key == "Shift") { setMode(lastMode, board); }
+        if (e.key == "Shift") { setMode(board.lastMode, board); }
         if (e.key == "Shift" || e.key == "Control") { 
             keys[e.key] = false;
         }
