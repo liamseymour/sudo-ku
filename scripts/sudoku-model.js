@@ -1,3 +1,8 @@
+const colorMap = {  1:"red", 2:"green", 3:"blue", 4:"yellow",
+                    5:"magenta", 6:"mint", 7:"lightblue", 8:"brown",
+                    9:"black"};
+
+
 /**
  * @param {integer[]} tiles An array of tiles to select. The tile is represented 
  * by its absolute position (0 indexed). Requires: 0 <= tiles[i] <= 80.
@@ -146,10 +151,7 @@ function insertNote(digit) {
  * Sets the class of selected tiles to be the appropriate color.
  */
 function insertColor(number) {
-    colorMap = {1:"red", 2:"green", 3:"blue", 4:"yellow",
-                5:"magenta", 6:"mint", 7:"lightblue", 8:"white",
-                9:"black"};
-    $("#grid td.selected div").removeClass("red green blue yellow magenta mint lightblue white black");
+    $("#grid td.selected div").removeClass("red green blue yellow magenta mint lightblue brown black");
     if (number > 0 && number < 10)
         $("#grid td.selected div").addClass(colorMap[number]);
 }
@@ -198,7 +200,7 @@ function clearBoard() {
 	for (var i = 0; i < 81; i++) {
         var tile = getTile1D(i);
         tile.removeClass("digit note locked");
-        tile.children("div").removeClass("red green blue yellow magenta mint lightblue white black");
+        tile.children("div").removeClass("red green blue yellow magenta mint lightblue brown black");
         tile.children("div").text("");
     }
     clearErrors();
@@ -302,18 +304,28 @@ function setMode(nextMode, board) {
     if (nextMode != board.mode) {
         board.lastMode = board.mode;
     }
-    board.mode = nextMode % board.modeCount;
-    $(".fill-pane").removeClass("selected");
-    $(".pencil-pane").removeClass("selected");
-    $(".color-pane").removeClass("selected");
+    board.mode = nextMode % 3;
 
-    if (board.mode == board.modes["digit"]) {
-        $(".fill-pane").addClass("selected");
-    } else if (board.mode == board.modes["note"]) {
-        $(".pencil-pane").addClass("selected");
-    } else if (board.mode == board.modes["color"]) {
-        $(".color-pane").addClass("selected");
+    $("#panel").removeClass("digit note color")
+    if (board.mode == board.modes["digit"])
+        $("#panel").addClass("digit");
+    if (board.mode == board.modes["note"])
+        $("#panel").addClass("note");
+    if (board.mode == board.modes["color"]) {
+        $("#panel").addClass("color");
+        var i = 1;
+        $.each($("#panel button"), function() {
+            $(this).addClass(colorMap[i]);
+            i++;
+        });
+    } else {
+        $.each($("#panel button"), function() {
+            $(this).removeClass("red green blue yellow magenta mint lightblue brown black");
+        });
     }
+
+
+    console.log("Mode set to: " + board.mode);
 }
 
 /** undo is NOT IMPLEMENTED

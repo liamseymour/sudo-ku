@@ -1,13 +1,3 @@
-table.color-pane tr:nth-child(1) td:nth-child(1) button { background-color: #ffb9b0; }
-table.color-pane tr:nth-child(1) td:nth-child(2) button { background-color: #7fe57f; }
-table.color-pane tr:nth-child(1) td:nth-child(3) button { background-color: #7fb2e5; }
-table.color-pane tr:nth-child(2) td:nth-child(1) button { background-color: #e5e57f; }
-table.color-pane tr:nth-child(2) td:nth-child(2) button { background-color: #cc7fe5; }
-table.color-pane tr:nth-child(2) td:nth-child(3) button { background-color: #b2ffe5; }
-table.color-pane tr:nth-child(3) td:nth-child(1) button { background-color: #cce5ff; }
-table.color-pane tr:nth-child(3) td:nth-child(2) button { background-color: #ffffff; }
-table.color-pane tr:nth-child(3) td:nth-child(3) button { background-color: #7f7f7f; }
-
 .red { background-color: #ff736180; }
 .green { background-color: #00cc0080; }
 .blue { background-color: #0066cc80; }
@@ -15,7 +5,7 @@ table.color-pane tr:nth-child(3) td:nth-child(3) button { background-color: #7f7
 .magenta { background-color: #9900cc80; }
 .mint { background-color: #66ffcc80; }
 .lightblue { background-color: #99ccff80; }
-.white { background-color: #ffffff00; }
+.brown { background-color: #73490080; }
 .black { background-color: #00000080; }
 
 body {
@@ -135,7 +125,6 @@ td div {
   border-collapse: collapse;
   float: left;
   margin-left: 300px;
-  margin-top: 40px;
   border-color: black;
   cursor: pointer;
 }
@@ -193,13 +182,15 @@ td div {
 }
 
 /* controls & options pane */
-div.mode-select {
-  padding-bottom: 10px;
+table.mode-select {
+  padding-left: 30px;
   margin: auto;
 }
 
-div.mode-select button{
-  margin-left: 17px;
+table.mode-select button{
+  width: 45px;
+  height: 45px;
+  padding: 0px;
 }
 
 div.controls {
@@ -208,21 +199,17 @@ div.controls {
   width: 200px;
   margin-left: 830px;
   margin-right: 15%;
-  margin-top: 15px;
+  margin-top: 35px;
   padding: 20px;
 }
 
-
-
-div.controls table, div.controls div  {
+div.controls table{
   margin: auto;
-  padding: 2px;
+  padding: 0;
 }
 
-div.controls table.selected {
-  margin: auto;
-  background-color: rgba(118, 215, 196);
-  border-radius: 8px;
+div.controls td {
+  padding: 2px;
 }
 
 div.controls table button {
@@ -231,19 +218,19 @@ div.controls table button {
   border: 1px solid black;
 }
 
-table.fill-pane button {
+table.digit button {
   font-size: 150%;
   background-color: #efffef;
   margin: 0px;
 }
 
-table.pencil-pane button {
+table.note button {
   font-size: 100%;
   background-color: #efffef;
   margin: 0px;
 }
 
-table.color-pane button {
+table.color button {
   color: rgba(0, 0, 0, 0);
   font-size: 100%;
   margin: 0px;
