@@ -21,7 +21,8 @@ function init() {
     // Drag select listeners
     // inital mouse click
     $("#grid td").mousedown(function (e) {
-        if (!board.add) { clearSelection(); }
+        if (!board.add) 
+            clearSelection();
         $(this).addClass("selected");
         var row = $(this).parent().attr("id").charCodeAt(0) - "A".charCodeAt(0);
         // find all single digits and parse the first one
@@ -38,7 +39,7 @@ function init() {
             var row = $(this).parent().attr("id").charCodeAt(0) - "A".charCodeAt(0);
             // find all single digits and parse the first one
             var col = parseInt(($(this).attr("class")).match(/\d/)[0]);
-            // dragging a click ins the special case where selection is ALWAYS added to the board, 
+            // dragging a click is the special case where selection is ALWAYS added to the board, 
             // but we still need to pass a board object and do not want to permanently change it
             previousAddState = board.add;
             board.add = true;
@@ -75,9 +76,9 @@ function init() {
         if (keys["ArrowRight"]) { moveCursor("right", board); }
 
         if (keys["Delete"] || keys["Backspace"]) { 
-            if (board.mode == board.modes["color"]) {
+            if (board.mode == board.modes["color"])
                 insertColor(0);
-            } else {
+            else {
                 resetTiles();
                 // validate board, if error checking switch is enabled 
                 if ($("#errorSwitch").is(':checked')) 
@@ -85,9 +86,8 @@ function init() {
             }
         }
 
-        if (e.key != "Shift" && e.key != "Control") { // Non-modifyer keys
+        if (e.key != "Shift" && e.key != "Control") // Non-modifyer keys
             keys[e.key] = false;
-        }
     });
 
     // detect modifier key up
