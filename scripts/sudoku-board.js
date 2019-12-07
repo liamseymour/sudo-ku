@@ -4,6 +4,8 @@ loadScript("/scripts/sudoku-model.js");
 var board = new Board();
 var keys = {}; // keyboard keys currently pressed
 var mouseDown = false; // mouse currently pressed
+var puzzles;
+var puzzleNumber = -1;
 
 // var eventStack = []; // Records select actions from the user to allow for undoing
 
@@ -106,6 +108,11 @@ function init() {
         })
     });
 
+    // Load pre-made puzzles
+    $.getJSON("scripts/puzzles.json", function(data) {
+        puzzles = data["puzzles"];
+    });
+
     console.log("Loading done, elapsed time (s): " + (new Date() - start) / 1000);
 }
 
@@ -114,6 +121,16 @@ function toggleErrorChecking() {
         validateBoard();
     else
         clearErrors();
+}
+
+function nextPuzzle() {
+    puzzleNumber = Math.min(puzzleNumber + 1, puzzles.length - 1);
+    setPuzzle(puzzles[puzzleNumber], 9);
+}
+
+function previousPuzzle() {
+    puzzleNumber = Math.max(puzzleNumber - 1, 0);
+    setPuzzle(puzzles[puzzleNumber], 9);
 }
 
 function hardPuzzle() {
@@ -132,14 +149,19 @@ function getPuzzle(size, difficulty) {
     clearBoard();
     $.getJSON("https://sugoku.herokuapp.com/board?difficulty=" + difficulty, function(data) {
         var board = data["board"];
-        for (var row = 0; row < size; row++) {
+        setPuzzle(board, size);
+    });
+}
+
+function setPuzzle(board, size) {
+    clearBoard();
+    for (var row = 0; row < size; row++) {
             for (var col = 0; col < size; col++) {
                 if (board[row][col] != 0) {
                     insertDigit(board[row][col], index1D(row, col), true);
                 }
             }
         }
-    });
 }
 
 function loadScript(url) {
