@@ -236,6 +236,15 @@ table.color button {
   margin: 0px;
 }
 
+div.options {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+div.game-select {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
 
 
 /* Sliders */
