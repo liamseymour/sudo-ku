@@ -17,7 +17,7 @@ def parse(s):
 if __name__ == "__main__":
 	# get json data
 	dirname = os.path.dirname(__file__)
-	filename = os.path.join(dirname, '../puzzles.json')	
+	filename = os.path.join(dirname, 'puzzles.json')	
 	with open(filename) as file:
 		data = json.load(file)
 
