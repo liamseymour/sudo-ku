@@ -12,7 +12,6 @@
 				<a href="index.html">Sudo<span class="grey">ku</span></a>
 			</div>
 			<div class="strip">
-				<a href="" class="strip-item">Choose Game</a>
 				<div class="dropdown" >
 					<span class="strip-item">Random Game</span>
 					<div class="dropdown-content">
@@ -23,7 +22,6 @@
 						<button onclick="hardPuzzle()">Hard</button>
 					</div>
 				</div>
-				<a href="" class="strip-item">Load Game</a>
 				<a href="help.html" class="strip-item">Help</a>
 			</div>
         </header>
@@ -167,7 +165,7 @@
                 </table>
                 
 				<!-- sets game options -->
-				<div>
+				<div class="options">
 					<span class="category">Show Errors</span>
 					<label class="switch">
 						<input id="errorSwitch" type="checkbox" onclick="toggleErrorChecking()">
@@ -175,7 +173,7 @@
 					</label>
 				</div>
 				<!-- game selectors -->
-				<div>
+				<div class="game-select">
 					<button onclick="previousPuzzle()">Previous Puzzle</button>
 					<button onclick="nextPuzzle()">Next Puzzle</button>
 				</div>
