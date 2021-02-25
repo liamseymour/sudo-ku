@@ -15,3 +15,6 @@ A web page for playing sudoku.
  - Built in puzzles
  - Random puzzle generation
  - Use LOCKING to import your own puzzles
+
+# Demos
+Github doesn't suport videos in the README. Checkout the demos folder!
