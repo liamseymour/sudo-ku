@@ -1,6 +1,8 @@
 # sudo-ku
 A web page for playing sudoku.
 
+![Snapshot of Some Features](demos/img-1.png)
+
 # Features
  - Mutliple control schemes
      - Arrow Keys / WASD navigate OR
